@@ -80,11 +80,7 @@ export class Snowflake {
     this.#seq = this.#seq >= 4095n ? 0n : this.#seq + 1n;
     if (this.#seq === 4095n) this.#lastSequenceExhaustion = Date.now();
 
-    return (
-      ((nTimestamp - this.#epoch) << 22n) | // millis since epoch
-      ((this.#nodeId & 0b1111111111n) << 12n) |
-      this.#seq
-    ).toString();
+    return (((nTimestamp - this.#epoch) << 22n) | ((this.#nodeId & 0b1111111111n) << 12n) | this.#seq ).toString();
   }
 
   public deconstruct(id: string | bigint): DeconstructedSnowflake {
